@@ -1,69 +1,164 @@
-# React + TypeScript + Vite
+# **Sample App using React (Vite) and AWS Services**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project demonstrates how to build and deploy a sample application using **React (Vite)** for the frontend and **AWS Cloud Services** for the backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Tech Stack**
 
-## Expanding the ESLint configuration
+- **Frontend**: React (Vite)
+- **Backend**: AWS Lambda
+- **API Gateway**: Amazon API Gateway
+- **Database**: Amazon DynamoDB
+- **Hosting**: AWS Amplify
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## **Project Overview**
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+The app uses:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **React with Vite** for a fast and optimized frontend.
+- **AWS Lambda** for serverless backend logic.
+- **Amazon API Gateway** to expose Lambda functions via HTTP endpoints.
+- **Amazon DynamoDB** to store and retrieve data.
+- **AWS Amplify** for hosting and deploying the frontend.
+
+---
+
+## **Setup Guide**
+
+### **1. Create the React App using Vite**
+
+```bash
+# Create a new Vite app
+npm create vite@latest my-app
+cd my-app
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### **2. Backend Setup with AWS Lambda and API Gateway**
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+#### **a. Create Lambda Function**
+
+- Go to **AWS Lambda Console** and create a new function.
+- Choose **Node.js runtime**.
+- This function will interact with **DynamoDB**.
+
+#### **b. Install AWS SDK for Lambda**
+
+Since Lambda does not include the latest modular AWS SDK by default:
+
+```bash
+npm install @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb
 ```
+
+#### **c. Configure Lambda Layer**
+
+- Create a `package.json` file for your Lambda layer:
+
+```json
+{
+  "name": "lambda-layer",
+  "version": "1.0.0",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.x",
+    "@aws-sdk/lib-dynamodb": "^3.x"
+  },
+  "type": "module"
+}
+```
+
+- Zip the `node_modules` and attach the layer to your Lambda function.
+
+#### **d. Example Lambda Code**
+
+```javascript
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
+
+export const handler = async () => {
+  const params = {
+    TableName: "SampleTable",
+    Item: { id: "123", name: "Test User" },
+  };
+
+  await docClient.send(new PutCommand(params));
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: "Data inserted successfully" }),
+  };
+};
+```
+
+---
+
+### **3. Create API Gateway Endpoint**
+
+- Create a **REST API** or **HTTP API** in **Amazon API Gateway**.
+- Integrate the API with your Lambda function.
+- Enable **CORS**:
+
+```
+Access-Control-Allow-Origin: https://your-app.amplifyapp.com
+```
+
+- Deploy the API and copy the **Invoke URL**.
+
+---
+
+### **4. Connect React Frontend to API Gateway**
+
+- Add the API Gateway URL to `.env`:
+
+```env
+VITE_API_BASE_URL=https://your-api-id.execute-api.region.amazonaws.com/dev
+```
+
+- Use it in your React app:
+
+```javascript
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
+async function fetchData() {
+  const response = await fetch(`${API_URL}/your-endpoint`);
+  const data = await response.json();
+  console.log(data);
+}
+```
+
+---
+
+### **5. Deploy Frontend on AWS Amplify**
+
+1. Push your React project to **GitHub**.
+2. In **AWS Amplify Console**, select **Connect App**.
+3. Choose the GitHub repo and branch.
+4. Add `VITE_API_BASE_URL` as an **environment variable** in Amplify.
+5. Deploy and get your live URL.
+
+---
+
+## **AWS Services Used**
+
+✅ **AWS Lambda** – Serverless compute for backend logic
+✅ **Amazon API Gateway** – Exposes Lambda functions as REST APIs
+✅ **Amazon DynamoDB** – NoSQL database for data storage
+✅ **AWS Amplify** – Frontend hosting and deployment
+
+---
+
+### **Live Demo**
+
+> [React-App-With-AWS-Services](https://main.dc9fiyiky62rj.amplifyapp.com/)
