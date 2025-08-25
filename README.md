@@ -161,4 +161,4 @@ async function fetchData() {
 
 ### **Live Demo**
 
-> [React-App-With-AWS-Services](https://main.dc9fiyiky62rj.amplifyapp.com/)
+> <a href="https://main.dc9fiyiky62rj.amplifyapp.com/" target="_blank">React-App-With-AWS-Services</a>
