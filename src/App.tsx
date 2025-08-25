@@ -5,18 +5,21 @@ import "./App.css";
 import "./Table.css";
 
 function App() {
+  //Getting the API gateway url fron env variables
+  const apiGatewayUrl = import.meta.env.VITE_API_GATEWAY_URL;
+
   const [userData, setUserData] = useState([]);
 
+  //async function to fetch user data
   const retriveUserDataList = async () => {
-    const res = await fetch(
-      "https://l6bpf9bsc8.execute-api.ap-south-1.amazonaws.com/Test-Production/user-data"
-    );
+    const res = await fetch(`${apiGatewayUrl}/user-data`);
 
     let jsonData = await res.json();
 
     setUserData(jsonData);
   };
 
+  //calling above function using that hook
   useEffect(() => {
     retriveUserDataList();
   }, []);
