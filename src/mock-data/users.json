@@ -1,0 +1,92 @@
+[
+  {
+    "NIC": "199012345678",
+    "FirstName": "Nipuna",
+    "LastName": "Suraj",
+    "Gender": "Male",
+    "Address": "123 Main Street, Colombo",
+    "MobileNumber": "+94711234567",
+    "Email": "nipuna.suraj@example.com"
+  },
+  {
+    "NIC": "199145678901",
+    "FirstName": "Amaya",
+    "LastName": "Perera",
+    "Gender": "Female",
+    "Address": "45 Park Road, Kandy",
+    "MobileNumber": "+94775551234",
+    "Email": "amaya.perera@example.com"
+  },
+  {
+    "NIC": "199234567890",
+    "FirstName": "Kavindu",
+    "LastName": "Fernando",
+    "Gender": "Male",
+    "Address": "78 Lake View, Galle",
+    "MobileNumber": "+94778889999",
+    "Email": "kavindu.fernando@example.com"
+  },
+  {
+    "NIC": "199312345678",
+    "FirstName": "Dilani",
+    "LastName": "Wijesinghe",
+    "Gender": "Female",
+    "Address": "12 Temple Lane, Negombo",
+    "MobileNumber": "+94770112233",
+    "Email": "dilani.wijesinghe@example.com"
+  },
+  {
+    "NIC": "199412398765",
+    "FirstName": "Sahan",
+    "LastName": "Jayawardena",
+    "Gender": "Male",
+    "Address": "90 Green Street, Matara",
+    "MobileNumber": "+94776667777",
+    "Email": "sahan.jayawardena@example.com"
+  },
+  {
+    "NIC": "199545678912",
+    "FirstName": "Isuru",
+    "LastName": "De Silva",
+    "Gender": "Male",
+    "Address": "15 Hill Road, Kurunegala",
+    "MobileNumber": "+94774445555",
+    "Email": "isuru.desilva@example.com"
+  },
+  {
+    "NIC": "199678901234",
+    "FirstName": "Sanduni",
+    "LastName": "Ranasinghe",
+    "Gender": "Female",
+    "Address": "34 Ocean Drive, Trincomalee",
+    "MobileNumber": "+94779998888",
+    "Email": "sanduni.ranasinghe@example.com"
+  },
+  {
+    "NIC": "199734567890",
+    "FirstName": "Tharindu",
+    "LastName": "Peiris",
+    "Gender": "Male",
+    "Address": "67 River Bank, Anuradhapura",
+    "MobileNumber": "+94772223333",
+    "Email": "tharindu.peiris@example.com"
+  },
+  {
+    "NIC": "199845678901",
+    "FirstName": "Chathuri",
+    "LastName": "Senanayake",
+    "Gender": "Female",
+    "Address": "23 Flower Street, Jaffna",
+    "MobileNumber": "+94773334444",
+    "Email": "chathuri.senanayake@example.com"
+  },
+  {
+    "NIC": "199956789012",
+    "FirstName": "Ravindu",
+    "LastName": "Hettiarachchi",
+    "Gender": "Male",
+    "Address": "50 Palm Road, Batticaloa",
+    "MobileNumber": "+94776661111",
+    "Email": "ravindu.hettiarachchi@example.com"
+  }
+]

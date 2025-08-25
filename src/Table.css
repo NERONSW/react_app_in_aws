@@ -1,0 +1,66 @@
+/* Wrapper lets the table scroll on small screens */
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 8px;
+}
+
+/* Base table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb; /* light border */
+  border-radius: 12px;
+  overflow: hidden; /* rounds the corners */
+}
+
+/* Header cells */
+th {
+  text-align: left;
+  font-weight: 600;
+  background: #f8fafc; /* very light gray/blue */
+  color: #0f172a; /* dark slate */
+  padding: 12px 14px;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+/* Data cells */
+td {
+  text-align: left;
+  padding: 12px 14px;
+  color: #1f2937; /* gray-800 */
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: top;
+}
+
+/* Zebra striping (skips the header row automatically) */
+tr:nth-child(even) td {
+  background: #fafafa;
+}
+
+/* Row hover */
+tr:hover td {
+  background: #f1f5f9;
+}
+
+/* Make long text wrap nicely */
+td,
+th {
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Optional: tighten columns on very small screens */
+@media (max-width: 480px) {
+  table {
+    font-size: 13px;
+  }
+  th,
+  td {
+    padding: 10px 12px;
+  }
+}

@@ -1,10 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import "./Table.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [userData, setUserData] = useState([]);
+
+  const retriveUserDataList = async () => {
+    const res = await fetch(
+      "https://l6bpf9bsc8.execute-api.ap-south-1.amazonaws.com/Test-Production/user-data"
+    );
+
+    let jsonData = await res.json();
+
+    setUserData(jsonData);
+  };
+
+  useEffect(() => {
+    retriveUserDataList();
+  }, []);
 
   return (
     <>
@@ -17,18 +32,37 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
-      <h3>This is for testing AWS cloud services</h3>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <h3>
+        This project is designed to test AWS cloud services, including Lambda,
+        API Gateway, DynamoDB, and Amplify.
+      </h3>
+
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>NIC</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Email</th>
+              <th>Mobile Number</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userData.map((user: any) => (
+              <tr key={user.NIC}>
+                <td>{user.NIC}</td>
+                <td>{user.FirstName + " " + user.LastName}</td>
+                <td>{user.Gender}</td>
+                <td>{user.Email}</td>
+                <td>{user.MobileNumber}</td>
+                <td>{user.Address}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
